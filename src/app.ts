@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello Mongoose");
+  res.send("Hello Mongoosess");
 });
 
 export default app;
