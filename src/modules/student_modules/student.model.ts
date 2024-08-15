@@ -1,16 +1,29 @@
 import { Schema, model, connect } from "mongoose";
-import { Tstudent } from "./student.interface";
+import { Tgaurdian, TlocalGaurdian, Tstudent, TuserNameSchema } from "./student.interface";
+
+const userNameSchema = new Schema<TuserNameSchema>({
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    middleName: { type: String },
+})
+const gaurdianSchema = new Schema<Tgaurdian>({
+    fatherName: { type: String, required: true },
+    fatherOccupation: { type: String, required: true },
+    fatherContactNumber: { type: String, required: true },
+    motherName: { type: String, required: true },
+    motherOccupation: { type: String, required: true },
+    motherContactNumber: { type: String, required: true },
+})
+const localGaurdianSchema = new Schema<TlocalGaurdian>({
+    localGaurdianName: { type: String, required: true },
+    localGaurdianOcupation: { type: String, required: true },
+    localGaurdianNumber: { type: String, required: true },
+})
 
 
-
-
-const userSchema = new Schema<Tstudent>({
+const studentSchema = new Schema<Tstudent>({
     id: { type: String, required: true },
-    name: {
-        firstName: { type: String, required: true },
-        lastName: { type: String, required: true },
-        middleName: { type: String },
-    },
+    name: userNameSchema,
     gender: { type: String, required: true, enum: ["male", "female"] },
     dateOfBirth: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -23,19 +36,10 @@ const userSchema = new Schema<Tstudent>({
     },
     presentAddress: { type: String, required: true },
     permanentAddress: { type: String, required: true },
-    gaurdian: {
-        fatherName: { type: String, required: true },
-        fatherOccupation: { type: String, required: true },
-        fatherContactNumber: { type: String, required: true },
-        motherName: { type: String, required: true },
-        motherOccupation: { type: String, required: true },
-        motherContactNumber: { type: String, required: true },
-    },
-    localGaurdian: {
-        localGaurdianName: { type: String, required: true },
-        localGaurdianOcupation: { type: String, required: true },
-        localGaurdianNumber: { type: String, required: true },
-    },
+    gaurdian: gaurdianSchema,
+    localGaurdian: localGaurdianSchema,
     profileImage: { type: String, required: true },
     isActive: { type: String, required: true, enum: ["active", "inactive"] },
 });
+
+export const studentModel = model<Tstudent>('student', studentSchema)
