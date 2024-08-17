@@ -37,10 +37,29 @@ const getallStudent = async (req: Request, res: Response) => {
     }
 }
 
+const getSingleStudent = async (req: Request, res: Response) => {
+    try {
+        const  id  = req.query._id
+        const result = await studentServices.getSigleStudent(id)
+        res.status(200).json({
+            success: true,
+            message: "succfully retrieved single student",
+            data: result
+        })
+    }
+    catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "error while fetching student",
+            data: err,
+        })
+    }
+}
 
 
 
 export const studentControler = {
     createStudent,
-    getallStudent
+    getallStudent,
+    getSingleStudent
 };
