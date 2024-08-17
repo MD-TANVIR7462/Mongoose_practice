@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { studentServices } from "./student.services";
+import { ObjectId } from "mongoose";
 
 const createStudent = async (req: Request, res: Response) => {
   try {
@@ -37,8 +38,8 @@ const getallStudent = async (req: Request, res: Response) => {
 };
 
 const getSingleStudent = async (req: Request, res: Response) => {
-  try {
-    const id = req.query._id;
+    try {
+      const {id} = req.params  ;
     const result = await studentServices.getSigleStudent(id);
     res.status(200).json({
       success: true,

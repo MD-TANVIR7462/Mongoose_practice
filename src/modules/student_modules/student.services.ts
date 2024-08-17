@@ -11,7 +11,7 @@ const getAllStudent = async () => {
   return result;
 };
 
-const getSigleStudent = async (id: ObjectId) => {
+const getSigleStudent = async (id: string) => {
   const result = await studentModel.findById(id);
   return result;
 };
