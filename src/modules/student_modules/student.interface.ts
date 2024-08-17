@@ -1,4 +1,4 @@
-export type TuserNameSchema = {
+export type TuserName = {
     firstName: string;
     lastName: string;
     middleName: string;
@@ -18,7 +18,7 @@ export type TlocalGaurdian = {
 }
 export type Tstudent = {
     id: string;
-    name: TuserNameSchema;
+    name: TuserName;
     gender: "male" | "female";
     dateOfBirth: string;
     email: string;

@@ -1,25 +1,29 @@
 import { Schema, model, connect } from "mongoose";
-import { Tgaurdian, TlocalGaurdian, Tstudent, TuserNameSchema } from "./student.interface";
+import {
+    Tgaurdian,
+    TlocalGaurdian,
+    Tstudent,
+    TuserName,
+} from "./student.interface";
 
-const userNameSchema = new Schema<TuserNameSchema>({
+const userNameSchema = new Schema<TuserName>({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    middleName: { type: String },
-})
+    middleName: { type: String }
+});
 const gaurdianSchema = new Schema<Tgaurdian>({
     fatherName: { type: String, required: true },
     fatherOccupation: { type: String, required: true },
     fatherContactNumber: { type: String, required: true },
     motherName: { type: String, required: true },
     motherOccupation: { type: String, required: true },
-    motherContactNumber: { type: String, required: true },
-})
+    motherContactNumber: { type: String, required: true }
+});
 const localGaurdianSchema = new Schema<TlocalGaurdian>({
     localGaurdianName: { type: String, required: true },
     localGaurdianOcupation: { type: String, required: true },
-    localGaurdianNumber: { type: String, required: true },
-})
-
+    localGaurdianNumber: { type: String, required: true }
+});
 
 const studentSchema = new Schema<Tstudent>({
     id: { type: String, required: true },
@@ -39,7 +43,7 @@ const studentSchema = new Schema<Tstudent>({
     gaurdian: gaurdianSchema,
     localGaurdian: localGaurdianSchema,
     profileImage: { type: String, required: true },
-    isActive: { type: String, required: true, enum: ["active", "inactive"] },
+    isActive: { type: String, required: true, enum: ["active", "inactive"] }
 });
 
-export const studentModel = model<Tstudent>('student', studentSchema)
+export const studentModel = model<Tstudent>("student", studentSchema);
