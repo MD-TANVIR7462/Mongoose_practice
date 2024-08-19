@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import { Tstudent } from "./student.interface";
 import { studentModel } from "./student.shemamodel";
 
@@ -13,6 +12,14 @@ const getAllStudent = async () => {
 
 const getSigleStudent = async (id: string) => {
   const result = await studentModel.findById(id);
+  if (result !== null) {
+    return result;
+  }
+  const jsonResult = `No student find with ${id} this Id`;
+  return jsonResult;
+};
+const deleteStudent = async (_id: string) => {
+  const result = await studentModel.deleteOne({ _id });
   return result;
 };
 
@@ -20,4 +27,5 @@ export const studentServices = {
   createStudent,
   getAllStudent,
   getSigleStudent,
+  deleteStudent,
 };
