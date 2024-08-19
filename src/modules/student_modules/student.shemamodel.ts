@@ -1,4 +1,4 @@
-import { Schema, model, connect } from "mongoose";
+import { Schema, model } from "mongoose";
 import {
   Tgaurdian,
   TlocalGaurdian,
@@ -7,43 +7,63 @@ import {
 } from "./student.interface";
 
 const userNameSchema = new Schema<TuserName>({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
+  firstName: { type: String, required: [true, "First name is required"] },
+  lastName: { type: String, required: [true, "Last name is required"] },
   middleName: { type: String },
 });
+
 const gaurdianSchema = new Schema<Tgaurdian>({
-  fatherName: { type: String, required: true },
-  fatherOccupation: { type: String, required: true },
-  fatherContactNumber: { type: String, required: true },
-  motherName: { type: String, required: true },
-  motherOccupation: { type: String, required: true },
-  motherContactNumber: { type: String, required: true },
+  fatherName: { type: String, required: [true, "Father's name is required"] },
+  fatherOccupation: { type: String, required: [true, "Father's occupation is required"] },
+  fatherContactNumber: { type: String, required: [true, "Father's contact number is required"] },
+  motherName: { type: String, required: [true, "Mother's name is required"] },
+  motherOccupation: { type: String, required: [true, "Mother's occupation is required"] },
+  motherContactNumber: { type: String, required: [true, "Mother's contact number is required"] },
 });
+
 const localGaurdianSchema = new Schema<TlocalGaurdian>({
-  localGaurdianName: { type: String, required: true },
-  localGaurdianOcupation: { type: String, required: true },
-  localGaurdianNumber: { type: String, required: true },
+  localGaurdianName: { type: String, required: [true, "Local guardian's name is required"] },
+  localGaurdianOcupation: { type: String, required: [true, "Local guardian's occupation is required"] },
+  localGaurdianNumber: { type: String, required: [true, "Local guardian's contact number is required"] },
 });
 
 const studentSchema = new Schema<Tstudent>({
-  id: { type: String, required: true },
-  name: userNameSchema,
-  gender: { type: String, required: true, enum: ["male", "female"] },
-  dateOfBirth: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  contactNo: { type: String, required: true },
-  emergencyContactNo: { type: Number, required: true },
+  id: { type: String, required: [true, "Student ID is required"] },
+  name: { type: userNameSchema, required: [true, "Student name is required"] },
+  gender: {
+    type: String,
+    required: [true, "Gender is required"],
+    enum: {
+      values: ["male", "female", "other"],
+      message: "Gender must be 'male', 'female', or 'other'"
+    }
+  },
+  dateOfBirth: { type: String, required: [true, "Date of birth is required"] },
+  email: { type: String, required: [true, "Email is required"], unique: true },
+  contactNo: { type: String, required: [true, "Contact number is required"] },
+  emergencyContactNo: { type: Number, required: [true, "Emergency contact number is required"] },
   bloodGroup: {
     type: String,
-    required: true,
-    enum: ["AB+", "AB+", "A+", "B+", "O+", "AB+", "A-", " B-", "O-"],
+    required: [true, "Blood group is required"],
+    enum: {
+      values: ["AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"],
+      message: "Invalid blood group"
+    }
   },
-  presentAddress: { type: String, required: true },
-  permanentAddress: { type: String, required: true },
-  gaurdian: gaurdianSchema,
-  localGaurdian: localGaurdianSchema,
-  profileImage: { type: String, required: true },
-  isActive: { type: String, required: true, enum: ["active", "inactive"] },
+  presentAddress: { type: String, required: [true, "Present address is required"] },
+  permanentAddress: { type: String, required: [true, "Permanent address is required"] },
+  gaurdian: { type: gaurdianSchema, required: [true, "Guardian details are required"] },
+  localGaurdian: { type: localGaurdianSchema, required: [true, "Local guardian details are required"] },
+  profileImage: { type: String, required: [true, "Profile image is required"] },
+  isActive: {
+    type: String,
+    required: [true, "Status is required"],
+    enum: {
+      values: ["active", "inactive"],
+      message: "Status must be 'active' or 'inactive'"
+    },
+    default: "active",
+  },
 });
 
 export const studentModel = model<Tstudent>("student", studentSchema);
