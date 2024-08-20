@@ -4,5 +4,7 @@ const router = express.Router()
 
 router.get('/',facultyControler.createFaculty)
 
+  
+
 
 export const facultiRoutes = router
