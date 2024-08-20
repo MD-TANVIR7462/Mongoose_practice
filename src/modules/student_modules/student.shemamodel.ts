@@ -6,7 +6,7 @@ import {
   TuserName,
 } from "./student.interface";
 
-const userNameSchema = new Schema<TuserName>({
+export const userNameSchema = new Schema<TuserName>({
   firstName: { type: String, required: [true, "First name is required"],trim:true },
   lastName: { type: String, required: [true, "Last name is required"] },
   middleName: { type: String },
