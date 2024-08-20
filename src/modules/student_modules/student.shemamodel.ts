@@ -7,7 +7,7 @@ import {
 } from "./student.interface";
 
 const userNameSchema = new Schema<TuserName>({
-  firstName: { type: String, required: [true, "First name is required"] },
+  firstName: { type: String, required: [true, "First name is required"],trim:true },
   lastName: { type: String, required: [true, "Last name is required"] },
   middleName: { type: String },
 });
@@ -27,15 +27,17 @@ const localGaurdianSchema = new Schema<TlocalGaurdian>({
   localGaurdianNumber: { type: String, required: [true, "Local guardian's contact number is required"] },
 });
 
+
+
 const studentSchema = new Schema<Tstudent>({
-  id: { type: String, required: [true, "Student ID is required"] },
+  id: { type: String, required: [true, "Student ID is required"], unique:true },
   name: { type: userNameSchema, required: [true, "Student name is required"] },
   gender: {
     type: String,
     required: [true, "Gender is required"],
     enum: {
       values: ["male", "female", "other"],
-      message: "Gender must be 'male', 'female', or 'other'"
+      message: "{VALUE} is not valid! Gender must be 'male', 'female', or 'other'"
     }
   },
   dateOfBirth: { type: String, required: [true, "Date of birth is required"] },
@@ -47,7 +49,7 @@ const studentSchema = new Schema<Tstudent>({
     required: [true, "Blood group is required"],
     enum: {
       values: ["AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"],
-      message: "Invalid blood group"
+      message: '{VALUE} is not Valid'
     }
   },
   presentAddress: { type: String, required: [true, "Present address is required"] },
@@ -60,7 +62,7 @@ const studentSchema = new Schema<Tstudent>({
     required: [true, "Status is required"],
     enum: {
       values: ["active", "inactive"],
-      message: "Status must be 'active' or 'inactive'"
+      message: "{VALUE} is not Valid Status must be 'active' or 'inactive'"
     },
     default: "active",
   },
