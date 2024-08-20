@@ -7,7 +7,7 @@ import {
 } from "./student.interface";
 
 export const userNameSchema = new Schema<TuserName>({
-  firstName: { type: String, required: [true, "First name is required"],trim:true },
+  firstName: { type: String, required: [true, "First name is required"], trim: true },
   lastName: { type: String, required: [true, "Last name is required"] },
   middleName: { type: String },
 });
@@ -30,7 +30,7 @@ const localGaurdianSchema = new Schema<TlocalGaurdian>({
 
 
 const studentSchema = new Schema<Tstudent>({
-  id: { type: String, required: [true, "Student ID is required"], unique:true },
+  id: { type: String, required: [true, "Student ID is required"], unique: true },
   name: { type: userNameSchema, required: [true, "Student name is required"] },
   gender: {
     type: String,
