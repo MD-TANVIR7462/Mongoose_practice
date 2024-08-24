@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { studentServices } from "./student.services";
-
+import {z} from "zod"
 
 const createStudent = async (req: Request, res: Response) => {
     try {
