@@ -25,7 +25,7 @@ export const localGuardianZodSchema = z.object({
 });
 
 // Student Schema Validation
-export const studentSchema = z.object({
+export const studentZodSchema = z.object({
   id: z.string().nonempty("Student ID is required"),
   name: userNameZodSchema,
   gender: z.enum(["male", "female", "other"], {

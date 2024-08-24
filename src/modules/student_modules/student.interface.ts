@@ -1,9 +1,9 @@
 export type TuserName = {
   firstName: string;
   lastName: string;
-  middleName: string;
+  middleName?: string;
 };
-export type Tgaurdian = {
+export type Tguardian = {
   fatherName: string;
   fatherOccupation: string;
   fatherContactNumber: string;
@@ -11,24 +11,24 @@ export type Tgaurdian = {
   motherOccupation: string;
   motherContactNumber: string;
 };
-export type TlocalGaurdian = {
-  localGaurdianName: string;
-  localGaurdianOcupation: string;
-  localGaurdianNumber: string;
+export type TlocalGuardian = {
+  localGuardianName: string;
+  localGuardianOccupation: string;
+  localGuardianNumber: string;
 };
 export type Tstudent = {
   id: string;
   name: TuserName;
-  gender: "male" | "female";
+  gender: "male" | "female"|"other";
   dateOfBirth: string;
   email: string;
   contactNo: string;
-  emergencyContactNo: number;
-  bloodGroup: "AB+" | "AB+" | "A+" | "B+" | "O+" | "AB+" | "A-" | " B-" | "O-";
+  emergencyContactNo: string;
+  bloodGroup: "AB+" | "AB-" | "A+" | "A-" | "B+" | "B-" | "O+" | "O-";
   presentAddress: string;
   permanentAddress: string;
-  gaurdian: Tgaurdian;
-  localGaurdian: TlocalGaurdian;
+  guardian: Tguardian;
+  localGuardian: TlocalGuardian;
   profileImage?: string;
   isActive: "active" | "inactive";
 };
