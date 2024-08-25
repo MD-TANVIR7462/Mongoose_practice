@@ -35,7 +35,7 @@ export const studentZodSchema = z.object({
   dateOfBirth: z.string().nonempty("Date of birth is required"),
   email: z.string().nonempty("Email is required").email("Invalid email format"),
   contactNo: z.string().nonempty("Contact number is required"),
-  emergencyContactNo: z.string().nonempty("Emergency contact number is required").transform(Number),
+  emergencyContactNo: z.string().nonempty("Emergency contact number is required"),
   bloodGroup: z.enum(["AB+", "AB-", "A+", "A-", "B+", "B-", "O+", "O-"], {
     required_error: "Blood group is required",
     invalid_type_error: "Invalid blood group",

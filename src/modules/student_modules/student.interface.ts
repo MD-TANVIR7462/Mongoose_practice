@@ -19,7 +19,7 @@ export type TlocalGuardian = {
 export type Tstudent = {
   id: string;
   name: TuserName;
-  gender: "male" | "female"|"other";
+  gender: "male" | "female" | "other";
   dateOfBirth: string;
   email: string;
   contactNo: string;
