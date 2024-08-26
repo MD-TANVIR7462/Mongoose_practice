@@ -1,7 +1,20 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.studentModel = exports.userNameSchema = void 0;
 const mongoose_1 = require("mongoose");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 exports.userNameSchema = new mongoose_1.Schema({
     firstName: { type: String, required: [true, "First name is required"], trim: true },
     lastName: { type: String, required: [true, "Last name is required"] },
@@ -22,6 +35,7 @@ const localGaurdianSchema = new mongoose_1.Schema({
 });
 const studentSchema = new mongoose_1.Schema({
     id: { type: String, required: [true, "Student ID is required"], unique: true },
+    password: { type: String, required: [true, "Password is required"], unique: true, trim: true },
     name: { type: exports.userNameSchema, required: [true, "Student name is required"] },
     gender: {
         type: String,
@@ -57,5 +71,14 @@ const studentSchema = new mongoose_1.Schema({
         },
         default: "active",
     },
+});
+//midlewere for hashing passwords
+studentSchema.pre("save", function (next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = this;
+        const bcryptSalt = process.env.Bcrypt_salt;
+        user.password = yield bcrypt_1.default.hash(user.password, Number(bcryptSalt));
+        next();
+    });
 });
 exports.studentModel = (0, mongoose_1.model)("student", studentSchema);

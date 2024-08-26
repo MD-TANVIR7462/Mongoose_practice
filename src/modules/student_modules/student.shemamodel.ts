@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import bcrypt from "bcrypt";
 import {
 
   Tguardian,
@@ -32,6 +33,7 @@ const localGaurdianSchema = new Schema<TlocalGuardian>({
 
 const studentSchema = new Schema<Tstudent>({
   id: { type: String, required: [true, "Student ID is required"], unique: true },
+  password: { type: String, required: [true, "Password is required"], unique: true, trim: true },
   name: { type: userNameSchema, required: [true, "Student name is required"] },
   gender: {
     type: String,
@@ -68,5 +70,26 @@ const studentSchema = new Schema<Tstudent>({
     default: "active",
   },
 });
+
+
+
+//midlewere for hashing passwords
+studentSchema.pre("save", async function (next) {
+  const user = this
+  const bcryptSalt = process.env.Bcrypt_salt
+  user.password = await bcrypt.hash(user.password, Number(bcryptSalt))
+  next()
+})
+
+
+
+
+
+
+
+
+
+
+
 
 export const studentModel = model<Tstudent>("student", studentSchema);
