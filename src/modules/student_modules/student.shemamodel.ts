@@ -33,7 +33,7 @@ const localGaurdianSchema = new Schema<TlocalGuardian>({
 
 const studentSchema = new Schema<Tstudent>({
   id: { type: String, required: [true, "Student ID is required"], unique: true },
-  password: { type: String, required: [true, "Password is required"], unique: true, trim: true },
+  password: { type: String, required: [true, "Password is required"], trim: true },
   name: { type: userNameSchema, required: [true, "Student name is required"] },
   gender: {
     type: String,
@@ -81,7 +81,10 @@ studentSchema.pre("save", async function (next) {
   next()
 })
 
-
+studentSchema.post("save", function (doc, next) {
+  doc.password = ""
+  next()
+})
 
 
 
